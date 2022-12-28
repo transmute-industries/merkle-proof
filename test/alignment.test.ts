@@ -27,8 +27,5 @@ it("data structure alignment", () => {
     "./test/full-tree.graph.json",
     JSON.stringify(fullTreeGraph, null, 2)
   );
-  fs.writeFileSync(
-    "./test/full-tree.mermaid.md",
-    fullTreeMermaid
-  );
+  fs.writeFileSync("./test/full-tree.mermaid.md", fullTreeMermaid);
 });

@@ -31,8 +31,5 @@ it("custom tree styles", () => {
     }
   };
   const fullTreeMermaid = MerkleMermaid.basicTree(members, options);
-  fs.writeFileSync(
-    "./test/custom.tree.mermaid.md",
-    fullTreeMermaid
-  );
+  fs.writeFileSync("./test/custom.tree.mermaid.md", fullTreeMermaid);
 });

@@ -26,8 +26,5 @@ it("very large", () => {
     targetSalt
   );
 
-  fs.writeFileSync(
-    "./test/large.proof.mermaid.md",
-    mermaidView
-  );
+  fs.writeFileSync("./test/large.proof.mermaid.md", mermaidView);
 });

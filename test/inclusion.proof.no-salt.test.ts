@@ -11,8 +11,5 @@ it("view a full tree as inclusion proofs", () => {
     fullTreeObject,
     targetMember
   );
-  fs.writeFileSync(
-    "./test/inclusion.proof.no-salt.mermaid.md",
-    mermaidView
-  );
+  fs.writeFileSync("./test/inclusion.proof.no-salt.mermaid.md", mermaidView);
 });

@@ -22,8 +22,5 @@ it("view a full tree as inclusion proofs", () => {
     targetSalt
   );
 
-  fs.writeFileSync(
-    "./test/inclusion.proof.mermaid.md",
-    mermaidView
-  );
+  fs.writeFileSync("./test/inclusion.proof.mermaid.md", mermaidView);
 });
