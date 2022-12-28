@@ -1,5 +1,7 @@
 # @transmute/merkle-proof
 
+[![CI](https://github.com/transmute-industries/merkle-proof/actions/workflows/ci.yml/badge.svg)](https://github.com/transmute-industries/merkle-proof/actions/workflows/ci.yml)
+
 Merkle Proofs are a useful building block for privacy and security related applications.
 
 <img src="./transmute-banner.png" />
