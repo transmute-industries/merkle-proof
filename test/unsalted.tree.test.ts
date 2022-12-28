@@ -1,5 +1,5 @@
 import fs from "fs";
-import MerkleUrn from "..";
+import MerkleUrn from "../src/urn-representation";
 
 it("unsalted merkle tree as urn", () => {
   const members = ["0", "1", "2", "3", "4", "5", "6", "7"].map(Buffer.from);
@@ -12,7 +12,7 @@ it("unsalted merkle tree as urn", () => {
   expect(valid2).toBe(true);
 
   fs.writeFileSync(
-    "./src/urn-representation/__tests__/unsalted.tree.json",
+    "./test/unsalted.tree.json",
     JSON.stringify({ treeUrn, proofUrn }, null, 2)
   );
 });

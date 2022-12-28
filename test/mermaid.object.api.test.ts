@@ -1,5 +1,5 @@
 import fs from "fs";
-import merkle from "../..";
+import merkle from "../src";
 
 const members = ["0", "1", "2", "3", "4", "5", "6", "7"].map(Buffer.from);
 const seed = Buffer.from("hello");
@@ -40,6 +40,6 @@ ${m2}
 # Proof with Member
 ${m3}
 `;
-    fs.writeFileSync("./src/api/__tests__/mermaid.object.md", file);
+    fs.writeFileSync("./test/mermaid.object.md", file);
   });
 });

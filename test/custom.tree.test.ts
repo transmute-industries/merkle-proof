@@ -1,5 +1,5 @@
 import fs from "fs";
-import MerkleMermaid from "../../mermaid-representation";
+import MerkleMermaid from "../src/mermaid-representation";
 
 it("custom tree styles", () => {
   const members = ["0", "1", "2", "3", "4", "5", "6", "7"].map(Buffer.from);
@@ -32,7 +32,7 @@ it("custom tree styles", () => {
   };
   const fullTreeMermaid = MerkleMermaid.basicTree(members, options);
   fs.writeFileSync(
-    "./src/mermaid-representation/__tests__/custom.tree.mermaid.md",
+    "./test/custom.tree.mermaid.md",
     fullTreeMermaid
   );
 });

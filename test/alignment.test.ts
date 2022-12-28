@@ -1,7 +1,7 @@
 import fs from "fs";
-import BinaryMerkleTree from "../../binary-merkle-tree";
-import MerkleMermaid from "..";
-import JsonMerkleTree from "../../json-representation";
+import BinaryMerkleTree from "../src/binary-merkle-tree";
+import MerkleMermaid from "../src/mermaid-representation";
+import JsonMerkleTree from "../src/json-representation";
 
 it("data structure alignment", () => {
   const seed = Buffer.from("hello");
@@ -20,15 +20,15 @@ it("data structure alignment", () => {
   };
   const fullTreeMermaid = MerkleMermaid.graphToMermaid(fullTreeGraph, options);
   fs.writeFileSync(
-    "./src/mermaid-representation/__tests__/full-tree.obj.json",
+    "./test/full-tree.obj.json",
     JSON.stringify(fullTreeObject, null, 2)
   );
   fs.writeFileSync(
-    "./src/mermaid-representation/__tests__/full-tree.graph.json",
+    "./test/full-tree.graph.json",
     JSON.stringify(fullTreeGraph, null, 2)
   );
   fs.writeFileSync(
-    "./src/mermaid-representation/__tests__/full-tree.mermaid.md",
+    "./test/full-tree.mermaid.md",
     fullTreeMermaid
   );
 });

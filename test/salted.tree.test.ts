@@ -1,6 +1,6 @@
 import fs from "fs";
-import MerkleUrn from "..";
-import { getSaltsForMembers } from "../../binary-merkle-tree/getSaltsForMembers";
+import MerkleUrn from "../src/urn-representation";
+import { getSaltsForMembers } from "../src/binary-merkle-tree/getSaltsForMembers";
 
 const seed = Buffer.from("hello");
 const members = ["0", "1", "2", "3", "4", "5", "6", "7"].map(Buffer.from);
@@ -16,7 +16,7 @@ it("salted merkle tree as urn", () => {
   expect(valid2).toBe(true);
 
   fs.writeFileSync(
-    "./src/urn-representation/__tests__/salted.tree.json",
+    "./test/salted.tree.json",
     JSON.stringify({ treeUrn, proofUrn }, null, 2)
   );
 });

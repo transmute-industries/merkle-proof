@@ -1,8 +1,8 @@
 import fs from "fs";
 
-import BinaryMerkleTree from "../../binary-merkle-tree";
-import JsonMerkleTree from "../../json-representation";
-import MerkleMermaid from "../../mermaid-representation";
+import BinaryMerkleTree from "../src/binary-merkle-tree";
+import JsonMerkleTree from "../src/json-representation";
+import MerkleMermaid from "../src/mermaid-representation";
 
 it("view a full tree as inclusion proofs", () => {
   const seed = Buffer.from("hello");
@@ -23,7 +23,7 @@ it("view a full tree as inclusion proofs", () => {
   );
 
   fs.writeFileSync(
-    "./src/mermaid-representation/__tests__/inclusion.proof.mermaid.md",
+    "./test/inclusion.proof.mermaid.md",
     mermaidView
   );
 });

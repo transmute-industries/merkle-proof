@@ -1,4 +1,4 @@
-import BinaryMerkleTree from "..";
+import BinaryMerkleTree from "../src/binary-merkle-tree";
 
 it("simple", () => {
   const members = ["0", "1", "2", "3", "4", "5", "6", "7"].map(Buffer.from);

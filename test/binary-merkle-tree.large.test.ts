@@ -1,4 +1,4 @@
-import BinaryMerkleTree from "..";
+import BinaryMerkleTree from "../src/binary-merkle-tree";
 
 const list: Buffer[] = Array.from({ length: 512 }, (_x, i) =>
   Buffer.from(`${i}`)

@@ -1,4 +1,4 @@
-import merkle from "../..";
+import merkle from "../src";
 
 const members = ["0", "1", "2", "3", "4", "5", "6", "7"].map(Buffer.from);
 

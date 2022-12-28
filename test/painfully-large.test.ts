@@ -1,8 +1,8 @@
 import fs from "fs";
 
-import BinaryMerkleTree from "../../binary-merkle-tree";
-import JsonMerkleTree from "../../json-representation";
-import MerkleMermaid from "../../mermaid-representation";
+import BinaryMerkleTree from "../src/binary-merkle-tree";
+import JsonMerkleTree from "../src/json-representation";
+import MerkleMermaid from "../src/mermaid-representation";
 
 const list: Buffer[] = Array.from({ length: 23 }, (_x, i) =>
   Buffer.from(`${i}`)
@@ -27,7 +27,7 @@ it("very large", () => {
   );
 
   fs.writeFileSync(
-    "./src/mermaid-representation/__tests__/large.proof.mermaid.md",
+    "./test/large.proof.mermaid.md",
     mermaidView
   );
 });
