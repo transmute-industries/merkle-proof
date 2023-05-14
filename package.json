@@ -2,7 +2,7 @@
   "name": "@transmute/merkle-proof",
   "author": "Orie Steele",
   "module": "dist/merkle-proof.esm.js",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "license": "Apache-2.0",
   "homepage": "https://github.com/transmute-industries/merkle-proof",
   "repository": {
