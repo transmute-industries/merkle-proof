@@ -5,10 +5,7 @@ import { CONCAT } from './CONCAT'
 import { EQUAL } from './EQUAL'
 
 
-
-const LSB = (number: number) => {
-  return number % 2 === 1
-}
+import { LSB } from './LSB'
 
 // b.  Set merge_count to the lowest value (0 included) such that
 // LSB(i >> merge_count) is not set, where LSB means the least
