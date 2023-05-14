@@ -1,6 +1,6 @@
 {
   // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
-  "include": ["src", "types", "test/mermaid.object.api.test.ts", "test/binary-merkle-tree.large.test.ts", "test/alignment.test.ts"],
+  "include": ["src", "types", "test/mermaid.object.api.test.ts", "test/binary-merkle-tree.large.test.ts", "test/alignment.test.ts", "test/__tests__"],
   "compilerOptions": {
     "module": "esnext",
     "lib": ["dom", "esnext"],

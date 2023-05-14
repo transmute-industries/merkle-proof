@@ -1,4 +1,6 @@
-import { treeHead, strToBin, verifyTree } from '../'
+import api from '../../src'
+
+const { treeHead, strToBin, verifyTree } = api.RFC9162
 
 describe('verifyTree', () => {
   it('1', async () => {

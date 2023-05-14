@@ -1,4 +1,7 @@
-import {
+
+import api from '../../src'
+
+const {
   strToBin,
   binToHex,
   leaf,
@@ -7,11 +10,13 @@ import {
   verifyInclusionProof,
   consistencyProof,
   verifyConsistencyProof,
-} from '../'
+} = api.RFC9162
+
+
 
 // https://datatracker.ietf.org/doc/html/rfc9162#name-merkle-consistency-proofs
 
-const entries = []
+const entries:any = []
 
 const D: {[key: string]: Uint8Array[]} = {}
 

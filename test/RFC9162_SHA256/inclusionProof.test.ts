@@ -1,4 +1,8 @@
-import { strToBin, binToHex, inclusionProof } from '../'
+
+import api from '../../src'
+
+const { strToBin, binToHex, inclusionProof } = api.RFC9162
+
 
 describe('inclusionProof', () => {
   it('1', async () => {

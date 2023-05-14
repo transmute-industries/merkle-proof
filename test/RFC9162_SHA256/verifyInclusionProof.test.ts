@@ -1,4 +1,7 @@
-import { strToBin, leaf, treeHead, inclusionProof, verifyInclusionProof } from '../'
+
+import api from '../../src'
+
+const { strToBin, leaf, treeHead, inclusionProof, verifyInclusionProof } = api.RFC9162
 
 describe('inclusionProof', () => {
   it('1', async () => {
