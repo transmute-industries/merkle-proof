@@ -4,6 +4,9 @@ import JsonMerkleTree from "../json-representation";
 import MerkleMermaid from "../mermaid-representation";
 import MerkleUrn from "../urn-representation";
 
+
+import * as RFC9162 from '../RFC9162_SHA256'
+
 import { MerkleAuditPath } from "../binary-merkle-tree/types";
 import { MerkleTreeObject } from "../json-representation/types";
 
@@ -162,7 +165,8 @@ const api = {
     BinaryMerkleTree,
     JsonMerkleTree,
     MerkleMermaid
-  }
+  },
+  RFC9162
 };
 
 export default api;
