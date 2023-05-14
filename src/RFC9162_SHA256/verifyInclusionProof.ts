@@ -1,34 +1,50 @@
-import {leastSignificantBit } from './leastSignificantBit'
-import { CONCAT } from './CONCAT';
-import { hexToBin } from './hexToBin';
-import { HASH } from './HASH';
-import { binToHex } from './binToHex'
+import { CONCAT } from './CONCAT'
+import { hexToBin } from './hexToBin'
+import { HASH } from './HASH'
 
-export const verifyInclusionProof = (root_hash: Uint8Array, tree_size: number, hash: Uint8Array, leaf_index: number, inclusion_path: Uint8Array[]) => {
-  if (leaf_index > tree_size){
-    return false;
+import { EQUAL } from './EQUAL'
+
+export const verifyInclusionProof = (
+  root_hash: Uint8Array,
+  hash: Uint8Array,
+  tree_size: number,
+  leaf_index: number,
+  inclusion_path: Uint8Array[],
+) => {
+  if (leaf_index > tree_size) {
+    return false
   }
-  let fn = leaf_index;
-  let sn = tree_size - 1;
+  let fn = leaf_index
+  let sn = tree_size - 1
   let r = hash
-  for (const p of inclusion_path){
-    if (sn === 0){
-      return false;
+  const prefix = hexToBin('01')
+  for (const p of inclusion_path) {
+    // a.  If sn is 0, then stop the iteration and fail the proof verification.
+    if (sn === 0) {
+      return false
     }
-    const lsb = leastSignificantBit(fn)
-    if (lsb || fn === sn){
-      r = HASH(CONCAT(hexToBin('01'), CONCAT(p, r)))
-      if (!lsb){
-        while (!leastSignificantBit(fn) && fn !== 0){
-          fn >>= 1
-          sn >>= 1
-        }
+    // b.  If LSB(fn) is set, or if fn is equal to sn, then:
+    if (fn % 2 === 1 || fn === sn) {
+      // i.   Set r to HASH(0x01 || p || r).
+      r = HASH(CONCAT(prefix, CONCAT(p, r)))
+      // ii.  If LSB(fn) is not set, then right-shift both fn and sn
+      // equally until either LSB(fn) is set or fn is 0.
+      if (fn % 2 !== 1) {
+        do {
+          fn = fn >> 1
+          sn = sn >> 1
+        } while (fn % 2 !== 1 || fn !== 0)
       }
+      // Otherwise:
     } else {
-      r = HASH(CONCAT(hexToBin('01'), CONCAT(r, p)))
+      // i.  Set r to HASH(0x01 || r || p).
+      r = HASH(CONCAT(prefix, CONCAT(r, p)))
     }
+    // c.  Finally, right-shift both fn and sn one time.
+    fn = fn >> 1
+    sn = sn >> 1
   }
-  fn >>= 1
-  sn >>= 1
-  return sn === 0 && binToHex(r) === binToHex(root_hash)
+  const roots_match = EQUAL(r, root_hash)
+  const sn_is_0 = sn === 0
+  return sn_is_0 && roots_match
 }

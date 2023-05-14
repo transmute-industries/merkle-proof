@@ -10,6 +10,11 @@ import {
 const entry1 = strToBin('A')
 const entry2 = strToBin('B')
 
+const entries: Uint8Array[]  = []
+for (let i = 0; i < 10; i++){
+  entries.push(strToBin(`${String.fromCharCode(65 + i)}`))
+}
+
 it('empty list', async () => {
   const root = binToHex(MTH([]))
   expect(root).toBe(
@@ -52,32 +57,52 @@ it('verify entries list', async () => {
 it('proof for a leaf', async () => {
   const entries = [entry1]
   const proof = inclusionProof(entry1, entries)
-  expect(proof).toEqual([])
+  if (proof){
+    expect(proof.inclusion_path).toEqual([])
+  }
 })
 
 it('proof for smallest entries list', async () => {
   const entries = [entry1, entry2]
-  const proof = inclusionProof(entry1, entries)?.map(binToHex)
-  expect(proof).toEqual([
-    '87afe6086fe4571e37657e76281301f189c75ebae1d2eaafb56d578067a1d95e',
-  ])
+  const proof = inclusionProof(entry1, entries)
+  if (proof){
+    expect(proof.inclusion_path.map(binToHex)).toEqual([
+      '87afe6086fe4571e37657e76281301f189c75ebae1d2eaafb56d578067a1d95e',
+    ])
+  }
 })
 
 it('verify proof for smallest entries list', async () => {
   const entries = [entry1, entry2]
-  const tree_size = entries.length
-  const leaf_index = entries.indexOf(entry1)
   const root = MTH(entries)
   const proof = inclusionProof(entry1, entries)
   const leaf = MTH([entry1])
   if (proof) {
     const verified = verifyInclusionProof(
       root,
-      tree_size,
       leaf,
-      leaf_index,
-      proof,
+      proof.tree_size,
+      proof.leaf_index,
+      proof.inclusion_path,
     )
     expect(verified).toBe(true)
   }
 })
+
+it('verify proof for larger entries list', async () => {
+  expect.assertions(1)
+    const proof = inclusionProof(entries[1], entries)
+    const root = MTH(entries)
+    const leaf = MTH([entries[1]])
+    if (proof) {
+      const verified = verifyInclusionProof(
+        root,
+        leaf,
+        proof?.tree_size,
+        proof.leaf_index,
+        proof?.inclusion_path,
+      )
+      expect(verified).toBe(true)
+    }
+})
+

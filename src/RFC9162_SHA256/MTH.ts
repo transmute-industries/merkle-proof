@@ -4,9 +4,19 @@ import { CONCAT } from './CONCAT'
 
 import { hexToBin } from './hexToBin'
 import { strToBin } from './strToBin'
-import { largestPowerOf2SmallerThan } from './largestPowerOf2SmallerThan'
+
+import { highestPowerOf2LessThanN } from './highestPowerOf2LessThanN'
 
 const EMPTY_STRING = strToBin('')
+
+const cut = (list: Uint8Array[], start:number, end:number) => {
+  const d = [];
+  while (start < end){
+    d.push(list[start])
+    start++;
+  }
+  return d
+}
 
 export const MTH = (entries: Uint8Array[]): Uint8Array => {
   const n = entries.length
@@ -14,10 +24,13 @@ export const MTH = (entries: Uint8Array[]): Uint8Array => {
     return HASH(EMPTY_STRING)
   }
   if (n === 1) {
-    return HASH(CONCAT(hexToBin('00'), entries[0]))
+    const prefix = hexToBin('00')
+    return HASH(CONCAT(prefix, entries[0]))
   }
-  const k = largestPowerOf2SmallerThan(n)
-  const left = entries.slice(0, k - 1)
-  const right = entries.slice(k - 1, n)
-  return HASH(CONCAT(hexToBin('01'), CONCAT(MTH(left), MTH(right))))
+  const k = highestPowerOf2LessThanN(n)
+  // console.log({k, n})
+  const left = cut(entries, 0, k)
+  const right = cut(entries, k, n)
+  const prefix = hexToBin('01')
+  return HASH(CONCAT(prefix, CONCAT(MTH(left), MTH(right))))
 }
