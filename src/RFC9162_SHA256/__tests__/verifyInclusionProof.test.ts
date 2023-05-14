@@ -1,16 +1,15 @@
-import { strToBin, MTH, inclusionProof, verifyInclusionProof } from '../'
+import { strToBin, leaf, treeHead, inclusionProof, verifyInclusionProof } from '../'
 
 describe('inclusionProof', () => {
   it('1', async () => {
     expect.assertions(1)
     const entries = [strToBin('A')]
-    const root = MTH(entries)
-    const leaf = MTH([entries[0]])
+    const root = treeHead(entries)
     const proof = inclusionProof(entries[0], entries)
     if (proof) {
       const verified = verifyInclusionProof(
         root,
-        leaf,
+        leaf(entries[0]),
         proof.tree_size,
         proof.leaf_index,
         proof.inclusion_path,
@@ -22,13 +21,12 @@ describe('inclusionProof', () => {
   it('2', async () => {
     expect.assertions(1)
     const entries = [strToBin('A'), strToBin('B')]
-    const root = MTH(entries)
-    const leaf = MTH([entries[1]])
+    const root = treeHead(entries)
     const proof = inclusionProof(entries[1], entries)
     if (proof) {
       const verified = verifyInclusionProof(
         root,
-        leaf,
+        leaf(entries[1]),
         proof.tree_size,
         proof.leaf_index,
         proof.inclusion_path,
@@ -40,13 +38,12 @@ describe('inclusionProof', () => {
   it('3', async () => {
     expect.assertions(1)
     const entries = [strToBin('A'), strToBin('B'), strToBin('C')]
-    const root = MTH(entries)
-    const leaf = MTH([entries[1]])
+    const root = treeHead(entries)
     const proof = inclusionProof(entries[1], entries)
     if (proof) {
       const verified = verifyInclusionProof(
         root,
-        leaf,
+        leaf(entries[1]),
         proof.tree_size,
         proof.leaf_index,
         proof.inclusion_path,
@@ -58,13 +55,12 @@ describe('inclusionProof', () => {
   it('4', async () => {
     expect.assertions(1)
     const entries = [strToBin('A'), strToBin('B'), strToBin('C'), strToBin('D')]
-    const root = MTH(entries)
-    const leaf = MTH([entries[1]])
+    const root = treeHead(entries)
     const proof = inclusionProof(entries[1], entries)
     if (proof) {
       const verified = verifyInclusionProof(
         root,
-        leaf,
+        leaf(entries[1]),
         proof.tree_size,
         proof.leaf_index,
         proof.inclusion_path,
@@ -82,13 +78,12 @@ describe('inclusionProof', () => {
       strToBin('D'),
       strToBin('E'),
     ]
-    const root = MTH(entries)
-    const leaf = MTH([entries[1]])
+    const root = treeHead(entries)
     const proof = inclusionProof(entries[1], entries)
     if (proof) {
       const verified = verifyInclusionProof(
         root,
-        leaf,
+        leaf(entries[1]),
         proof.tree_size,
         proof.leaf_index,
         proof.inclusion_path,
@@ -107,13 +102,12 @@ describe('inclusionProof', () => {
       strToBin('E'),
       strToBin('F'),
     ]
-    const root = MTH(entries)
-    const leaf = MTH([entries[1]])
+    const root = treeHead(entries)
     const proof = inclusionProof(entries[1], entries)
     if (proof) {
       const verified = verifyInclusionProof(
         root,
-        leaf,
+        leaf(entries[1]),
         proof.tree_size,
         proof.leaf_index,
         proof.inclusion_path,
@@ -133,13 +127,12 @@ describe('inclusionProof', () => {
       strToBin('F'),
       strToBin('G'),
     ]
-    const root = MTH(entries)
-    const leaf = MTH([entries[1]])
+    const root = treeHead(entries)
     const proof = inclusionProof(entries[1], entries)
     if (proof) {
       const verified = verifyInclusionProof(
         root,
-        leaf,
+        leaf(entries[1]),
         proof.tree_size,
         proof.leaf_index,
         proof.inclusion_path,
@@ -160,13 +153,12 @@ describe('inclusionProof', () => {
       strToBin('G'),
       strToBin('H'),
     ]
-    const root = MTH(entries)
-    const leaf = MTH([entries[1]])
+    const root = treeHead(entries)
     const proof = inclusionProof(entries[1], entries)
     if (proof) {
       const verified = verifyInclusionProof(
         root,
-        leaf,
+        leaf(entries[1]),
         proof.tree_size,
         proof.leaf_index,
         proof.inclusion_path,
@@ -187,13 +179,12 @@ describe('inclusionProof', () => {
       strToBin('H'),
       strToBin('I'),
     ]
-    const root = MTH(entries)
-    const leaf = MTH([entries[1]])
+    const root = treeHead(entries)
     const proof = inclusionProof(entries[1], entries)
     if (proof) {
       const verified = verifyInclusionProof(
         root,
-        leaf,
+        leaf(entries[1]),
         proof.tree_size,
         proof.leaf_index,
         proof.inclusion_path,
