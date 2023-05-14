@@ -7,17 +7,17 @@ import { EQUAL } from "./EQUAL";
 const prefix  = hexToBin('01')
 
 import {EXACT_POWER_OF_2 } from './EXACT_POWER_OF_2'
-
-export const verifyConsistencyProof = (
+import { ConsistencyProofDataV2 } from "./consistencyProof";
+const VERIFY_PROOF = (
   first_tree_size: number,
   first_tree_hash: Uint8Array,
   second_tree_size: number,
   second_tree_hash: Uint8Array,
-  consistency_proof_v2: Uint8Array[],
+  consistency_path: Uint8Array[],
 ) => {
 
   // 1.  If consistency_path is an empty array, stop and fail the proof verification.
-  if (consistency_proof_v2.length === 0){
+  if (consistency_path.length === 0){
     return false;
   }
 
@@ -37,12 +37,12 @@ export const verifyConsistencyProof = (
   }
 
   // Set both fr and sr to the first value in the consistency_path array.
-  let fr = consistency_proof_v2[0]
-  let sr = consistency_proof_v2[0]
+  let fr = consistency_path[0]
+  let sr = consistency_path[0]
 
   // 6.  For each subsequent value c in the consistency_path array:
-  for (let i = 1; i < consistency_proof_v2.length; i ++){
-    const c = consistency_proof_v2[i];
+  for (let i = 1; i < consistency_path.length; i ++){
+    const c = consistency_path[i];
     // a.  If sn is 0, then stop the iteration and fail the proof
     //        verification.
     if (sn === 0){
@@ -74,4 +74,9 @@ export const verifyConsistencyProof = (
   const sn_is_zero = sn === 0;
 
   return sn_is_zero &&  fr_is_first_hash && sr_is_second_hash
+}
+
+
+export const verifyConsistencyProof = ( hash1: Uint8Array, hash2: Uint8Array, proof: ConsistencyProofDataV2) =>{
+  return VERIFY_PROOF(proof.tree_size_1, hash1, proof.tree_size_2, hash2, proof.consistency_path)
 }

@@ -1,10 +1,10 @@
 import {
   MTH,
   strToBin,
-  PROOF,
   binToHex,
   inclusionProof,
   verifyInclusionProof,
+  consistencyProof,
   verifyConsistencyProof,
 } from '../'
 
@@ -89,8 +89,8 @@ describe('consistencyProof', () => {
     const prove_d0_in_hash0 = inclusionProof(d0, [d0, d1, d2])
 
     // The consistency proof between hash0 and hash is PROOF(3, D[7]) = [c, d, g, l].
-    const consistency_proof_v2 = PROOF(3, D[7])
-    const [c, d, g, l] = consistency_proof_v2.map(binToHex)
+    const consistency_proof_v2 = consistencyProof(prove_d0_in_hash0, D[7])
+    const [c, d, g, l] = consistency_proof_v2.consistency_path.map(binToHex)
 
     if (prove_d0_in_hash0) {
       const verified = verifyInclusionProof(
@@ -103,9 +103,7 @@ describe('consistencyProof', () => {
       expect(verified).toBe(true)
       if (prove_d0_in_hash) {
         const verifiedConsistency = verifyConsistencyProof(
-          prove_d0_in_hash0?.tree_size,
           hash0,
-          prove_d0_in_hash?.tree_size,
           hash,
           consistency_proof_v2,
         )
@@ -144,18 +142,16 @@ describe('consistencyProof', () => {
     //  | |     | |
     // d0 d1   d2 d3
     const hash1 = MTH([d0, d1, d2, d3])
-    // const prove_d0_in_hash1 = inclusionProof(d0, [d0, d1, d2, d3])
+    const prove_d0_in_hash1 = inclusionProof(d0, [d0, d1, d2, d3])
     // errata.... should be [k, l]
     // The consistency proof between hash1 and hash is PROOF(4, D[7]) = [l].
     // hash can be verified using hash1=k and l.
-    const consistency_proof_v2 = PROOF(4, D[7])
-    const [k, l] = consistency_proof_v2.map(binToHex)
+    const consistency_proof_v2 = consistencyProof(prove_d0_in_hash1, D[7])
+    const [k, l] = consistency_proof_v2.consistency_path.map(binToHex)
     expect(k).toBe(binToHex(hash1))
     expect(l).toBe(binToHex(prove_d3_in_hash?.inclusion_path[2]))
     const verifiedConsistency = verifyConsistencyProof(
-      4,
       hash1,
-      7,
       hash,
       consistency_proof_v2,
     )
@@ -179,18 +175,17 @@ describe('consistencyProof', () => {
     // |  |    |  |
     // d0 d1   d2 d3
     const hash2 = MTH([d0, d1, d2, d3, d4, d5])
-    const consistency_proof_v2 = PROOF(6, D[7])
+    const prove_d0_in_hash0 = inclusionProof(d0, [d0, d1, d2, d3, d4, d5])
+    const consistency_proof_v2 = consistencyProof(prove_d0_in_hash0, D[7])
     // The consistency proof between hash2 and hash is PROOF(6, D[7]) = [i, j, k]. 
-    const [i, j, k] = consistency_proof_v2.map(binToHex)
+    const [i, j, k] = consistency_proof_v2.consistency_path.map(binToHex)
     // Non-leaf nodes k, i are used to verify hash2, 
     expect(i).toBe(binToHex(prove_d6_in_hash?.inclusion_path[0]))
     expect(k).toBe(binToHex(prove_d6_in_hash?.inclusion_path[1]))
     // and non-leaf node j is additionally used to show hash is consistent with hash2.
     expect(j).toBe(binToHex(prove_d4_in_hash?.inclusion_path[1]))
     const verifiedConsistency = verifyConsistencyProof(
-      6,
       hash2,
-      7,
       hash,
       consistency_proof_v2,
     )
